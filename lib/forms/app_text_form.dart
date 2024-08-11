@@ -5,7 +5,7 @@ part of '../forms.dart';
 class AppTextForm<T> extends AppForm<T> {
   const AppTextForm({
     required super.name,
-    required super.label,
+    super.label,
     super.key,
     this.hintText,
     super.initialValue,
@@ -23,6 +23,7 @@ class AppTextForm<T> extends AppForm<T> {
     this.prefixIcon,
     this.suffixIcon,
     this.isReadOnly = false,
+    this.decoration = const InputDecoration(),
   });
 
   final void Function(T? value)? onChanged;
@@ -38,6 +39,7 @@ class AppTextForm<T> extends AppForm<T> {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final bool isReadOnly;
+  final InputDecoration decoration;
   @override
   State<AppTextForm<T>> createState() => _AppTextFormState();
 }
@@ -60,6 +62,7 @@ class _AppTextFormState<T> extends State<AppTextForm<T>> {
         enabled: widget.enabled,
         key: key,
         controller: widget.controller,
+        decoration: widget.decoration,
         onChanged: (value) {
           widget.onChanged?.call(
             switch (T) {
