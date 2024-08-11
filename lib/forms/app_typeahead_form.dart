@@ -20,6 +20,7 @@ class AppTypeAheadForm<T> extends AppForm<T> {
     super.initialValue,
     this.scrollController,
     this.focusNode,
+    this.decoration = const InputDecoration(),
     this.valueTransformer,
     this.onClear,
   });
@@ -34,6 +35,7 @@ class AppTypeAheadForm<T> extends AppForm<T> {
   final FocusNode? focusNode;
   final dynamic Function(T?)? valueTransformer;
   final VoidCallback? onClear;
+  final InputDecoration decoration;
 
   @override
   State<AppTypeAheadForm<T>> createState() => _AppTypeAheadFormState();
@@ -57,6 +59,7 @@ class _AppTypeAheadFormState<T> extends State<AppTypeAheadForm<T>> {
         children: [
           FormBuilderTypeAhead<T>(
             key: key,
+            decoration: widget.decoration,
             controller: widget.controller,
             validator: widget.validator,
             enabled: widget.enabled && key.currentState?.value == null,
