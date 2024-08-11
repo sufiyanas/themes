@@ -4,6 +4,7 @@
 library hancod_theme;
 
 export 'alert.dart';
+export 'buttons.dart';
 export 'colors.dart';
 export 'forms.dart';
 export 'scroll.dart';
