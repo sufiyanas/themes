@@ -11,6 +11,7 @@ class AppPhoneNumberForm extends AppForm<String> {
     super.fieldKey,
     this.onChanged,
     this.required = false,
+    this.decoration = const InputDecoration(),
     this.onFieldSubmitted,
   });
 
@@ -18,6 +19,7 @@ class AppPhoneNumberForm extends AppForm<String> {
   final bool required;
   final String? Function(PhoneNumber?)? mobileValidator;
   final void Function(String value)? onFieldSubmitted;
+  final InputDecoration decoration;
 
   @override
   State<AppPhoneNumberForm> createState() => _AppPhoneNumberFormState();
@@ -40,6 +42,7 @@ class _AppPhoneNumberFormState extends State<AppPhoneNumberForm> {
                 ? null
                 : PhoneNumber.parse(widget.initialValue!),
             validator: widget.mobileValidator,
+            decoration: widget.decoration,
             onChanged: (phoneNumber) {
               field.didChange(phoneNumber.international);
             },

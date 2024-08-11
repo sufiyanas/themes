@@ -33,7 +33,6 @@ class AppTextForm<T> extends AppForm<T> {
   final TextEditingController? controller;
   final bool enableObscureText;
   final TextInputType? keyboardType;
-  // final dynamic Function(T? value)? valueTransformer;
   final void Function(T value)? onSubmitted;
   final FocusNode? focusNode;
   final Widget? prefixIcon;
