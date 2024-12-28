@@ -5,16 +5,20 @@ class AppForm<T> extends StatefulWidget {
     required this.name,
     super.key,
     this.label,
+    this.secondaryLabel,
     this.fieldKey,
     this.initialValue,
     this.validator,
     this.enabled = true,
+    this.autovalidateMode,
   });
   final String name;
+  final String? secondaryLabel;
   final String? label;
-  final T? initialValue;
+  final dynamic initialValue;
   final bool enabled;
   final String? Function(T?)? validator;
+  final AutovalidateMode? autovalidateMode;
   // ignore: strict_raw_type
   final GlobalKey<FormBuilderFieldState>? fieldKey;
 

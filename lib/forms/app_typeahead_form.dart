@@ -17,15 +17,17 @@ class AppTypeAheadForm<T> extends AppForm<T> {
     super.enabled = true,
     this.controller,
     this.hintText,
-    super.initialValue,
+    super.secondaryLabel,
+    T? super.initialValue,
     this.scrollController,
     this.focusNode,
     this.decoration = const InputDecoration(),
     this.valueTransformer,
     this.onClear,
+    this.updateValue = true,
   });
   final String Function(T suggestion)? selectionToTextTransformer;
-  final FutureOr<Iterable<T>> Function(String search) suggestionsCallback;
+  final FutureOr<List<T>> Function(String search) suggestionsCallback;
   final void Function(T suggestion)? onSuggestionSelected;
   final Widget Function(BuildContext context, T suggestion) itemBuilder;
   final Widget Function(BuildContext context)? noItemsFoundBuilder;
@@ -36,6 +38,7 @@ class AppTypeAheadForm<T> extends AppForm<T> {
   final dynamic Function(T?)? valueTransformer;
   final VoidCallback? onClear;
   final InputDecoration decoration;
+  final bool updateValue;
 
   @override
   State<AppTypeAheadForm<T>> createState() => _AppTypeAheadFormState();
@@ -43,7 +46,6 @@ class AppTypeAheadForm<T> extends AppForm<T> {
 
 class _AppTypeAheadFormState<T> extends State<AppTypeAheadForm<T>> {
   late GlobalKey<FormBuilderFieldState> key;
-
   @override
   void initState() {
     super.initState();
@@ -59,25 +61,29 @@ class _AppTypeAheadFormState<T> extends State<AppTypeAheadForm<T>> {
         children: [
           FormBuilderTypeAhead<T>(
             key: key,
-            decoration: widget.decoration,
+            decoration:
+                widget.decoration.copyWith(labelText: widget.secondaryLabel),
             controller: widget.controller,
             validator: widget.validator,
             enabled: widget.enabled && key.currentState?.value == null,
-            getImmediateSuggestions: true,
             name: widget.name,
-            initialValue: widget.initialValue,
+            initialValue: widget.initialValue as T?,
             valueTransformer: widget.valueTransformer,
             focusNode: widget.focusNode,
             selectionToTextTransformer: widget.selectionToTextTransformer,
             suggestionsCallback: widget.suggestionsCallback,
             itemBuilder: widget.itemBuilder,
-            onSuggestionSelected: (suggestion) {
+            onSelected: (suggestion) {
               widget.onSuggestionSelected?.call(suggestion);
               setState(() {
-                key.currentState?.didChange(suggestion);
+                if (widget.updateValue) {
+                  key.currentState?.didChange(suggestion);
+                } else {
+                  key.currentState?.didChange(null);
+                }
               });
             },
-            noItemsFoundBuilder: widget.noItemsFoundBuilder,
+            emptyBuilder: widget.noItemsFoundBuilder,
             scrollController: widget.scrollController,
           ),
           if (key.currentState?.value != null && widget.enabled)

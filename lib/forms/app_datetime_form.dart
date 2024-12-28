@@ -6,7 +6,7 @@ class AppDateTimeForm extends AppForm<DateTime> {
     required super.label,
     super.key,
     this.hintText,
-    super.initialValue,
+    DateTime? super.initialValue,
     super.fieldKey,
     this.onChanged,
     this.inputFormatters,
@@ -44,6 +44,7 @@ class _AppDateTimeFormState extends State<AppDateTimeForm> {
         enabled: widget.enabled,
         validator: widget.validator,
         useRootNavigator: false,
+        valueTransformer: widget.valueTransformer,
         decoration: widget.decoration.copyWith(
           suffixIcon: Row(
             mainAxisSize: MainAxisSize.min,
@@ -63,8 +64,7 @@ class _AppDateTimeFormState extends State<AppDateTimeForm> {
           ),
         ),
         name: widget.name,
-        initialDate: widget.initialValue,
-        initialValue: widget.initialValue,
+        initialValue: widget.initialValue as DateTime?,
         inputType: widget.inputType,
         onChanged: widget.onChanged,
         fieldHintText: widget.hintText,
