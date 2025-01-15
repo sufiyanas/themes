@@ -16,7 +16,7 @@ class AppButton extends StatefulWidget {
     this.width = double.infinity,
     this.height,
     this.style = ButtonStyles.primary,
-    this.padding = const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
+    this.padding = const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
     this.color,
   });
 
